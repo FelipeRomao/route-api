@@ -11,6 +11,8 @@ import {
 } from '@nestjs/common';
 import { ClientKafka, MessagePattern, Payload } from '@nestjs/microservices';
 import { Producer } from '@nestjs/microservices/external/kafka.interface';
+import { WebSocketServer } from '@nestjs/websockets';
+import { Server } from 'socket.io';
 import { CreateRouteDto } from './dto/create-route.dto';
 import { UpdateRouteDto } from './dto/update-route.dto';
 import { RoutesService } from './routes.service';
@@ -18,6 +20,9 @@ import { RoutesService } from './routes.service';
 @Controller('routes')
 export class RoutesController implements OnModuleInit {
   private kafkaProducer: Producer;
+
+  @WebSocketServer()
+  server: Server;
 
   constructor(
     private readonly routesService: RoutesService,
@@ -81,4 +86,8 @@ export class RoutesController implements OnModuleInit {
   ) {
     console.log(message.value);
   }
+
+  /* sendPosition() {
+    
+  } */
 }
