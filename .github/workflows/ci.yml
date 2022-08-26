@@ -11,7 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: pandoc/latex
     steps:
       - uses: actions/checkout@v2
       - name: Install mustache (to update the date)
@@ -20,7 +19,7 @@ jobs:
         run:  sh ./build.sh
       - name: Pushes to another repository
         id: push_directory
-        uses: FelipeRomao/route-api-clone@ssh-deploy-key
+        uses: FelipeRomao/github-action-route-api-clone@ssh-deploy-key
         env:
           SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
         with:
